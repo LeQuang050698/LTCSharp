@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,53 +8,26 @@ namespace MyApp
 {
     class Triangle
     {
-        float canh_01, canh_02, canh_03;
-        public Triangle(float x, float y, float z){
-            canh_01 = x;
-            canh_02 = y;
-            canh_03 = z;
+        float P;
+        double C,S;
+        public Triangle(float edge01, float edge02, float edge03){
+            Edge01 = edge01;
+            Edge02 = edge02;
+            Edge03 = edge03;
+            P = (edge01 + edge02 + edge03);
+            C = P / 2;
+            S = Math.Sqrt(C * (C - edge01)* (C - edge02)* (C - edge03));
         }
 
-        public float Canh_01 {
-            get { return canh_01; }
-            set {
-                if(value > 0) {
-                    canh_01 = value;
-                }else {
-                    Console.WriteLine("Vui long nhap lai");
-                }
-            }
-        }
+        public float Edge01 { get; set; }
+        public float Edge02 { get; set; }
+        public float Edge03 { get; set; }
 
-        public float Canh_02 {
-            get { return canh_02; }
-            set {
-                if(value > 0) {
-                    canh_02 = value;
-                }else {
-                    Console.WriteLine("Vui long nhap lai");
-                }
-            }
+        public void PTriangle() {
+            Console.WriteLine("Perimeter Triangle: {0}",P);
         }
-        public float Canh_03 {
-            get { return canh_01; }
-            set {
-                if(value > 0) {
-                    canh_03 = value;
-                }else {
-                    Console.WriteLine("Vui long nhap lai");
-                }
-            }
-        }
-
-        public void ChuViTriangle() {
-            Console.WriteLine("Chu vi Tam Giac la: {0}",(canh_01 + canh_02 + canh_03));
-        }
-
-        public void DienTichTriangle() {
-            double C = (canh_01 + canh_02 + canh_03) / 2;
-            double S = Math.Sqrt(C* (C - canh_01)*(C - canh_02)*(C - canh_03));
-            Console.WriteLine("Dien tich Tam Giac la: {0}", S);
+        public void STriangle() {
+            Console.WriteLine("Acreage Triangle: {0}", S);
         }
     }
 }

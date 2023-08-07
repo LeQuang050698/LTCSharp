@@ -6,41 +6,22 @@ using System.Threading.Tasks;
 namespace MyApp
 {
     class Rectangle {
-        float chieiDai, chieuRong;
-
-        public Rectangle(float width, float height) {
-            chieiDai = width;
-            chieuRong = height;
+        float S,P;
+        public Rectangle(float length, float width) {
+            Length = length;
+            Width = width;
+            P = (length + width) / 2;
+            S = (length * width);
         }
 
-        public float ChieuDai {
-            get { return chieiDai; }
-            set {
-                if(value > 0) {
-                    chieiDai = value;
-                }else {
-                    Console.WriteLine("Vui long nhap lai");
-                }
-            }
-        }
-        public float ChieuRong {
-            get { return chieuRong; }
-            set {
-                if(value > 0) {
-                    chieuRong = value;
-                }else {
-                    Console.WriteLine("Vui long nhap lai");
-                }
-            }
+        public float Length { get; set; }
+        public float Width { get; set; }
+        public void PRectangle() {
+            Console.WriteLine("Perimeter Rectangle: {0}",P);
         }
 
-        public void ChuViRectangle() {
-            Console.WriteLine("Chu vi HCN la: {0}",(chieiDai + chieuRong)/2);
+        public void SRectangle() {
+            Console.WriteLine("Acreage Rectangle: {0}", S);
         }
-
-        public void DienTichRectangle() {
-            Console.WriteLine("Dien tich HCN la: {0}",(chieiDai * chieuRong));
-        }
-        
     }
 }
