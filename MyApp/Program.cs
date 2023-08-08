@@ -19,55 +19,35 @@ namespace MyApp
                     SetRectangle();
                 } else if(number == 2) {
                     SetTriangle(); 
+                } else {
+                    Console.WriteLine("Please Re-Enter!");
                 }
             }while(number != 1 && number != 2);
         }
 
         static void SetRectangle() {
-            float lengthRec, widthRec;
-            do {
-                Console.WriteLine("Length Rectangle: ");
-                lengthRec = Convert.ToSingle(Console.ReadLine());
+            Console.WriteLine("Length Rectangle: ");
+            float lengthRec = Convert.ToSingle(Console.ReadLine());
 
-                Console.WriteLine("Width Rectangle: ");
-                widthRec = Convert.ToSingle(Console.ReadLine());
+            Console.WriteLine("Width Rectangle: ");
+            float widthRec = Convert.ToSingle(Console.ReadLine());
 
-                if(lengthRec > 0 && widthRec > 0) {
-                    Rectangle abcd = new Rectangle(lengthRec, widthRec);
-                    abcd.PRectangle();
-                    abcd.SRectangle();
-                }else {
-                    Console.WriteLine("Please Re-Enter!");
-                }
-            }while(lengthRec <= 0 || widthRec <= 0);
+            Rectangle myRectangle = new Rectangle(lengthRec, widthRec);
+            myRectangle.CalculateRec();     
         }
-
         static void SetTriangle() {
-            float firstEdge, secondEdge, thirdEdge;
-            do {
-                Console.WriteLine("The First Side Of The Triangle: ");
-                firstEdge = Convert.ToSingle(Console.ReadLine());
+            Console.WriteLine("The First Side Of The Triangle: ");
+            float firstEdge = Convert.ToSingle(Console.ReadLine());
 
-                Console.WriteLine("The Second Side Of The Triangle: ");
-                secondEdge = Convert.ToSingle(Console.ReadLine());
+            Console.WriteLine("The Second Side Of The Triangle: ");
+            float secondEdge = Convert.ToSingle(Console.ReadLine());
 
-                Console.WriteLine("The Third Side Of The Triangle: ");
-                thirdEdge = Convert.ToSingle(Console.ReadLine());
+            Console.WriteLine("The Third Side Of The Triangle: ");
+            float thirdEdge = Convert.ToSingle(Console.ReadLine());
 
-                if(firstEdge > 0 && secondEdge > 0 && thirdEdge > 0) {
-                    if(firstEdge >= secondEdge + thirdEdge || secondEdge >= firstEdge + thirdEdge || thirdEdge >= firstEdge + secondEdge) {
-                        Console.WriteLine("This is not a triangle");
-                    } else {
-                        Triangle xyz = new Triangle(firstEdge, secondEdge, thirdEdge);
-                        xyz.PTriangle();
-                        xyz.STriangle();
-                    }
-                }else {
-                    Console.WriteLine("Please Re-Enter!");
-                }
-            }while (firstEdge <= 0 || secondEdge <= 0 || thirdEdge <= 0);
+            Triangle myTriangle = new Triangle(firstEdge, secondEdge, thirdEdge);
+            myTriangle.CalculateTria();
         }
-        
     }
 
 }
