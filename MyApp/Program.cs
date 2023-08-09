@@ -73,7 +73,8 @@ namespace MyApp
                 if(myTriangle.isValidTriangle()) {
                     Console.WriteLine("This is not a Triangle\nPlease Try Again");
                 }else {
-                    myTriangle.CalculateTriangle(); 
+                    Console.WriteLine($"Perimeter Triangle: {myTriangle.Perimeter()}");
+                    Console.WriteLine($"Acreage Triangle: {myTriangle.Acreage()}");
                 }
             }
         }

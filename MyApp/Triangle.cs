@@ -16,13 +16,7 @@ namespace MyApp
         public float SecondEdge { get; set; }
         public float ThirdEdge { get; set; }
 
-        public void CalculateTriangle() {
-            float P = FirstEdge + SecondEdge + ThirdEdge;
-            float C = P / 2;
-            double S = Math.Sqrt(C*(C - FirstEdge)*(C - SecondEdge)*(C - ThirdEdge));
-
-            Console.WriteLine($"Perimeter Triangle: {P}");
-            Console.WriteLine($"Acreage Triangle: {S}");
-        }
+        public float Perimeter() => FirstEdge + SecondEdge + ThirdEdge;
+        public double Acreage() => Math.Sqrt((Perimeter()/2)*((Perimeter()/2)-FirstEdge)*((Perimeter()/2)-SecondEdge)*((Perimeter()/2)-ThirdEdge));
     }
 }
