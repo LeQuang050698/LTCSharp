@@ -45,8 +45,8 @@ namespace forLoop
                 myRectangle.Height = Convert.ToInt32(Console.ReadLine());
             }
 
-            for(var i = 1; i <= myRectangle.Height; ++i){
-                for(var j = 1; j <= myRectangle.Width; ++j)
+            for(int i = 1; i <= myRectangle.Height; ++i){
+                for(int j = 1; j <= myRectangle.Width; ++j)
                     Console.Write("*");
                 Console.WriteLine();
             }
@@ -63,8 +63,8 @@ namespace forLoop
                 myTriangle.Height = Convert.ToInt32(Console.ReadLine());
             }
 
-            for(var i = myTriangle.Height; i >= 1; --i) {
-                for(var j = 0; j <= myTriangle.Height; ++j) {
+            for(int i = myTriangle.Height; i >= 1; --i) {
+                for(int j = 0; j <= myTriangle.Height; ++j) {
                     if(j <= myTriangle.Height - i) {
                         Console.Write("*");
                     }else {
@@ -85,8 +85,8 @@ namespace forLoop
                 myTriangle.Height = Convert.ToInt32(Console.ReadLine());
             }
 
-            for(var i = 1; i <= myTriangle.Height; ++i) {
-                for(var j = 0; j < myTriangle.Height; ++j) {
+            for(int i = 1; i <= myTriangle.Height; ++i) {
+                for(int j = 0; j < myTriangle.Height; ++j) {
                     if(j <= myTriangle.Height - i) {
                         Console.Write("*");
                     }else {
@@ -106,12 +106,24 @@ namespace forLoop
                 Console.WriteLine("Please Re-Enter Height: ");
                 myDimondShape.Height = Convert.ToInt32(Console.ReadLine());
             }
+            int i, j;
 
-            for(var i = 1; i <= myDimondShape.Height; ++i) {
-                for(var j = 1; j < 2*myDimondShape.Height; ++j) {
-                    if(Math.Abs(myDimondShape.Height - j) < i) {
+            for(i = 1; i <= myDimondShape.Height; i+=2) {
+                for(j = 1; j <= 2*myDimondShape.Height; j+=2) {
+                    if(Math.Abs(myDimondShape.Height - j) <= i) {
                         Console.Write("*");
                     } else {
+                        Console.Write("-");
+                    }
+                }
+                Console.WriteLine();
+            }
+
+            for(i = (myDimondShape.Height - 2); i >= 1; i-=2) {
+                for(j = 1; j <= 2*myDimondShape.Height; j+=2 ) {
+                    if(Math.Abs(myDimondShape.Height - j) <= i ){
+                        Console.Write("*");
+                    }else {
                         Console.Write("-");
                     }
                 }
