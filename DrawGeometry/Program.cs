@@ -98,19 +98,19 @@ namespace forLoop
         }
 
         public void DrawDimondShape() {
-            var myDimondShape = new DiamondShape();
+            var myDiamondShape = new DiamondShape();
 
             Console.Write("Height Diamond Shape: ");
-            myDimondShape.Height = Convert.ToInt32(Console.ReadLine());
-            while(!myDimondShape.isValidHeight()) {
+            myDiamondShape.Height = Convert.ToInt32(Console.ReadLine());
+            while(!myDiamondShape.isValidHeight()) {
                 Console.WriteLine("Please Re-Enter Height: ");
-                myDimondShape.Height = Convert.ToInt32(Console.ReadLine());
+                myDiamondShape.Height = Convert.ToInt32(Console.ReadLine());
             }
             int i, j;
 
-            for(i = 1; i <= myDimondShape.Height; i+=2) {
-                for(j = 1; j <= 2*myDimondShape.Height; j+=2) {
-                    if(Math.Abs(myDimondShape.Height - j) <= i) {
+            for(i = 1; i <= myDiamondShape.Height; i+=2) {
+                for(j = 1; j <= 2*myDiamondShape.Height; j+=2) {
+                    if(Math.Abs(myDiamondShape.Height - j) <= i) {
                         Console.Write("*");
                     } else {
                         Console.Write("-");
@@ -119,9 +119,9 @@ namespace forLoop
                 Console.WriteLine();
             }
 
-            for(i = (myDimondShape.Height - 2); i >= 1; i-=2) {
-                for(j = 1; j <= 2*myDimondShape.Height; j+=2 ) {
-                    if(Math.Abs(myDimondShape.Height - j) <= i ){
+            for(i = (myDiamondShape.Height - 2); i >= 1; i-=2) {
+                for(j = 1; j <= 2*myDiamondShape.Height; j+=2 ) {
+                    if(Math.Abs(myDiamondShape.Height - j) <= i ){
                         Console.Write("*");
                     }else {
                         Console.Write("-");
