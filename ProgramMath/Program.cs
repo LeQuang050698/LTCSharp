@@ -125,5 +125,7 @@ namespace ifElse
                 Console.WriteLine("This is not a Triangle");
             }
         }
+
+        static void set
     }
 }

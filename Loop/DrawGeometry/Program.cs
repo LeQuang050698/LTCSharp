@@ -11,9 +11,9 @@ namespace forLoop
         {
             Console.WriteLine("---------------------------------Drawing---------------------------------");
             Console.WriteLine("\n1:Rectangle\t 2:Triangle\t 3:Triangle Upside Down\t 4:Diamond Shape");
-            int number = 0;
             var program = new Program();
 
+            int number = 0;
             while(number != 1 && number != 2 && number != 3 && number != 4) 
             {
                 Console.Write("Your Choice:");
@@ -27,6 +27,7 @@ namespace forLoop
                 }
             }
         }
+
 
         public void DrawRectangle() {
             var myRectangle = new Rectangle();
