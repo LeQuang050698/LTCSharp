@@ -8,6 +8,7 @@ namespace MinMaxNumber
     public class Program
     {
         static void Main(string[] args) {
+            var program = new Program();
             
             Console.Write("Enter Quantity Number Check: ");
             int number = Convert.ToInt32(Console.ReadLine());
@@ -15,33 +16,48 @@ namespace MinMaxNumber
                 Console.Write("Enter Quantity Number Check Again : ");
                 number = Convert.ToInt32(Console.ReadLine());
             }
+            float[] numbers = new float[number];
 
-            float[] numbersCheck = new float[number];
-
-            for(var i = 0; i < number; ++i) {
-                Console.Write($"Number Check {i}: ");
-                numbersCheck[i] = Convert.ToSingle(Console.ReadLine()); 
+            for(int i = 0; i < number; ++i){
+                Console.Write($"Enter Number {i + 1}: ");
+                numbers[i] = Convert.ToSingle(Console.ReadLine());
             }
 
-            float min = numbersCheck[0];
-            float max = numbersCheck[0];
+            float max = numbers[0];
+            float min = numbers[0];
 
-            for(var j = 1; j < number; ++j) {
-                if(max < numbersCheck[j]) {
-                    max = numbersCheck[j];
-                } else if(max == numbersCheck[j]) {
-                    Console.WriteLine("There is no maximum value");
+            for(int i = 1; i < number; ++i) {
+                if(max < numbers[i]){
+                    max = numbers[i];
                 }
-
-                if(min > numbersCheck[j]) {
-                    min = numbersCheck[j];
-                }else if(min == numbersCheck[j]) {
-                    Console.WriteLine("There is no minimum value");
+                if(min > numbers[i]) {
+                    min = numbers[i];
                 }
             }
+            Console.WriteLine($"The maximum value is: {max}");
+            Console.WriteLine($"The minimum value is: {min}");
 
-            Console.WriteLine($"The maximum value: {max}");
-            Console.WriteLine($"The minimum value: {min}");
+            float maxSecond = min;
+            float minSecond = max;
+            for(int i = 1; i < number; ++i) {
+                if(maxSecond < numbers[i] && numbers[i] != max) {
+                    maxSecond = numbers[i];
+                }
+                if(minSecond > numbers[i] && numbers[i] != min) {
+                    minSecond = numbers[i];
+                }
+            }
+            if(maxSecond == max) {
+                Console.WriteLine("No 2nd largest value");
+            }else {
+                Console.WriteLine($"The second largest value is: {maxSecond}");
+            }
+            if(minSecond == min) {
+                Console.WriteLine("No 2nd smallest value");
+            }else {
+                Console.WriteLine($"The second largest value is: {minSecond}");
+            }
         }
+
     }
 }
