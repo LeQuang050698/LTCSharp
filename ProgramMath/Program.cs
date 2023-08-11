@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ifElse
+namespace ProgramMath
 {
     public class Program
     {
@@ -40,8 +40,8 @@ namespace ifElse
                             Console.Write("Please Choose: ");
                             newNumber = Convert.ToInt32(Console.ReadLine());
                             switch(newNumber) {
-                                case 1: break;
-                                case 2: break;
+                                case 1: FirstDegreeEquation(); break;
+                                case 2: SetQuadratic(); break;
                                 default: Console.WriteLine("Please Choose Again: "); break;
                             }
                         }
@@ -126,6 +126,41 @@ namespace ifElse
             }
         }
 
-        static void set
+        static void FirstDegreeEquation() {
+            var myEquation = new FirstEquation();
+
+            Console.Write("Enter A: ");
+            myEquation.A = Convert.ToSingle(Console.ReadLine());
+            while (!myEquation.isValidA()) {
+                Console.Write("Enter A Again: ");
+                myEquation.A = Convert.ToSingle(Console.ReadLine());
+            }
+
+            Console.Write("Enter B: ");
+            myEquation.B = Convert.ToSingle(Console.ReadLine());
+
+            Console.WriteLine($"The equation has the form: {myEquation.A}x + {myEquation.B} = 0");
+            Console.WriteLine($"The solution of the first degree equation is: {myEquation.X}");
+        }
+
+        static void SetQuadratic() {
+            var myQuadratic = new SetQuadratic();
+
+            Console.Write("Enter A: ");
+            myQuadratic.A = Convert.ToSingle(Console.ReadLine());
+            Console.Write("Enter B: ");
+            myQuadratic.B = Convert.ToSingle(Console.ReadLine());
+            Console.Write("Enter C: ");
+            myQuadratic.C = Convert.ToSingle(Console.ReadLine());
+            
+            Console.WriteLine($"The equation has the form: {myQuadratic.A}x^2 + {myQuadratic.B}x + {myQuadratic.C} = 0");
+            if(myQuadratic.Delta > 0) {
+                Console.WriteLine($"The equation has two distinct solutions:\nX1:{myQuadratic.X1}\tX2:{myQuadratic.X2}");
+            } else if(myQuadratic.Delta == 0) {
+                Console.WriteLine($"The equation has two double solutions X1 = X2 = {myQuadratic.X}");
+            } else {
+                Console.WriteLine("The equation has no solution");
+            }
+        }
     }
 }
