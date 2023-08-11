@@ -34,8 +34,12 @@ namespace MinMaxNumber
                     min = numbers[i];
                 }
             }
-            Console.WriteLine($"The maximum value is: {max}");
-            Console.WriteLine($"The minimum value is: {min}");
+            if(min == max) {
+                Console.WriteLine("There is no maximum and minimum value");
+            }else {
+                Console.WriteLine($"The maximum value is: {max}");
+                Console.WriteLine($"The minimum value is: {min}");
+            }
 
             float maxSecond = min;
             float minSecond = max;
