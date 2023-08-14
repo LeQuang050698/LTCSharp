@@ -25,41 +25,31 @@ namespace MinMaxNumber
 
             float max = numbers[0];
             float min = numbers[0];
+            float maxSecond = numbers[0];
+            float minSecond = numbers[0];
 
             for(int i = 1; i < number; ++i) {
-                if(max < numbers[i]){
-                    max = numbers[i];
-                }
-                if(min > numbers[i]) {
-                    min = numbers[i];
-                }
+                Array.Sort(numbers);
+                max = numbers[i];
+                maxSecond = numbers[i - 1];
+                min = numbers[0];
+                minSecond = numbers[1];
             }
             if(min == max) {
                 Console.WriteLine("There is no maximum and minimum value");
             }else {
-                Console.WriteLine($"The maximum value is: {max}");
-                Console.WriteLine($"The minimum value is: {min}");
-            }
-
-            float maxSecond = min;
-            float minSecond = max;
-            for(int i = 1; i < number; ++i) {
-                if(maxSecond < numbers[i] && numbers[i] != max) {
-                    maxSecond = numbers[i];
+                if(max == maxSecond) {
+                    Console.WriteLine("No 2nd largest value");
+                } else {
+                    Console.WriteLine($"The maximum value is: {max}");
+                    Console.WriteLine($"The 2nd maximum value is: {maxSecond}");
                 }
-                if(minSecond > numbers[i] && numbers[i] != min) {
-                    minSecond = numbers[i];
+                if(min == minSecond) {
+                    Console.WriteLine("No 2nd smallest value");
+                }else {
+                    Console.WriteLine($"The minimum value is: {min}");
+                    Console.WriteLine($"The 2nd minimum value is: {minSecond}");
                 }
-            }
-            if(maxSecond == max) {
-                Console.WriteLine("No 2nd largest value");
-            }else {
-                Console.WriteLine($"The second largest value is: {maxSecond}");
-            }
-            if(minSecond == min) {
-                Console.WriteLine("No 2nd smallest value");
-            }else {
-                Console.WriteLine($"The second largest value is: {minSecond}");
             }
         }
 
