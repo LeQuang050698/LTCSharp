@@ -39,12 +39,14 @@ namespace MinMaxNumber
                 Console.WriteLine("There is no maximum and minimum value");
             }else {
                 if(max == maxSecond) {
+                    Console.WriteLine($"The maximum value is: {max}");
                     Console.WriteLine("No 2nd largest value");
                 } else {
                     Console.WriteLine($"The maximum value is: {max}");
                     Console.WriteLine($"The 2nd maximum value is: {maxSecond}");
                 }
                 if(min == minSecond) {
+                    Console.WriteLine($"The minimum value is: {min}");
                     Console.WriteLine("No 2nd smallest value");
                 }else {
                     Console.WriteLine($"The minimum value is: {min}");
