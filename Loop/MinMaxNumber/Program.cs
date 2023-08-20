@@ -28,7 +28,7 @@ namespace MinMaxNumber
             float maxSecond = numbers[0];
             float minSecond = numbers[0];
 
-            for(int i = 1; i < number; ++i) {
+            for(int i = 1; i < numbers.Length; ++i) {
                 Array.Sort(numbers);
                 max = numbers[i];
                 maxSecond = numbers[i - 1];
