@@ -27,19 +27,19 @@ namespace CharacterCount
                 myString = myString.Replace(myString[0].ToString(), string.Empty);
             }
 
-            int Length = myString.Length;
-            for(int i = 0; i < Length; ++i) {
-                for(int j = i + 1; j < Length; ++j) {
-                    if(myString[i] == myString[j]) {
-                        for(int k = j + 1; k < Length; ++k) {
-                            myString[k] = myString[k - 1];
-                            i--;
-                            Length--;
-                        }
-                    }
-                }
-            }
-            Console.WriteLine(myString);
+            // int Length = myString.Length;
+            // for(int i = 0; i < Length; ++i) {
+            //     for(int j = i + 1; j < Length; ++j) {
+            //         if(myString[i] == myString[j]) {
+            //             for(int k = j + 1; k < Length; ++k) {
+            //                 myString[k] = myString[k - 1];
+            //                 i--;
+            //                 Length--;
+            //             }
+            //         }
+            //     }
+            // }
+            // Console.WriteLine(myString);
         }
     }
 }
