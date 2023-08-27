@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace CharacterCount
 {
@@ -25,7 +26,10 @@ namespace CharacterCount
                 if(i == j) {
                     Console.WriteLine($"{charArr[i]}: {count}");
                 }
+                
             }
+            string outputStr = Regex.Replace(str, @"(.)\1+", "$1");
+            Console.Write(outputStr);
         }
     }
 }
