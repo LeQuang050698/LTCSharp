@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
-
 namespace ATM_APP
 {
     public class Program
@@ -10,130 +10,111 @@ namespace ATM_APP
         static void Main(string[] args)
         {
             var program = new Program();
-            program.ScreenLogin();
+            long account = default;
+            long balance = default;
+            var usersID = new Dictionary<long, long>();
+            program.ScreenLogin(account,balance,usersID);
         }
-        public void ScreenLogin()
+        public void ScreenLogin(long account,long balance,Dictionary<long,long> usersID)
         {
-            var option = new ATM();
+            var option = new Choice();
             Console.WriteLine("1.User ID");
             Console.WriteLine("2.Exit");
-            while(!option.isValidNumber()){
-                Console.Write("Enter choice:");
+            while(!option.isValidNumberLog()){
+                Console.Write("Enter Choice:");
                 option.Number = Convert.ToInt32(Console.ReadLine());
                 switch(option.Number){
                     case 1:
-                        UserIdInput();
-                        while(true){
-                            ScreenMenu();
+                        AddUserId(account);
+                        ScreenMenu(balance);
+                        usersID.Add(account,balance);
+                        foreach(KeyValuePair<long,long>userID in usersID){
+                            Console.WriteLine($"{userID.Key}:{userID.Value}");
                         }
-                    // break;
-                    case 2:Console.WriteLine("\nThank You & See You Again"); break;
-                    default:Console.WriteLine("Re-Enter Number");break;
+                    break;
+                    case 2:Console.WriteLine("Thank You & See You Again");break;
+                    default:break;
                 }
             }
         }
-        public void UserIdInput()
+        public void AddUserId(long account)
         {
-            Console.Write("Enter User ID:");
-            long userId = Convert.ToInt64(Console.ReadLine());
+            Console.Write("Enter User Id:");
+            account = Convert.ToInt64(Console.ReadLine());
         }
-        public void BackScreen()
+        public void ScreenMenu(long balance)
         {
-            Console.WriteLine("\nPress Enter To Return\n");
-            Console.ReadKey();
-            ScreenMenu();
-        }
-        public void ScreenMenu()
-        {
-            var option = new ATM();
+            var option = new Choice();
             Console.WriteLine("<==========>MENU<==========>");
             Console.WriteLine("1.Display balance");
             Console.WriteLine("2.Withdraw");
             Console.WriteLine("3.Deposite");
             Console.WriteLine("4.Back to login screen");
             while(!option.isValidNumberMenu()){
-                Console.Write("Enter choice:");
+                Console.Write("Enter Choice:");
                 option.Number = Convert.ToInt32(Console.ReadLine());
                 switch(option.Number){
-                    case 1:ScreenBalance(); break;
-                    case 2:Withdraw(); break;
-                    case 3:Deposite(); break;
-                    case 4:ScreenLogin(); break;
-                    default: break;
+                    case 1:
+                        Console.WriteLine($"Your User ID has:{balance} VND");
+                        ScreenMenu(balance);
+                    break;
+                    case 2:Withdraw(balance);break;
+                    case 3:Deposite(balance);break;
+                    case 4:break;
                 }
             }
         }
-        public void ScreenBalance()
+        public long Withdraw(long balance)
         {
-            var userBalance = new ATM();
-            if(!userBalance.isValidBalance()){
-                userBalance.Balance = 0;
-                Console.WriteLine($"Your account is {userBalance.Balance} VND");
-                Console.WriteLine("Please deposit money");
-            } else{
-                Console.WriteLine($"Your account has:{userBalance.Balance} VND");
-            }
-            BackScreen();
-        }
-        public void Withdraw()
-        {
-            var makeWithdraw = new ATM();
+            long amount = default;
+            var option = new Choice();
             Console.WriteLine("<==========>Withdraw<==========>");
             Console.WriteLine("1.100000\t\t2.200000\t\t3.500000");
             Console.WriteLine("4.1000000\t\t5.2000000\t\t6.5000000");
-            Console.WriteLine("7.1000000\t\t8.Enter Another\t9.Back");
-            while(!makeWithdraw.isValidNumberWithdraw()){
-                Console.Write("Enter choice:");
-                makeWithdraw.Number = Convert.ToInt32(Console.ReadLine());
-                switch(makeWithdraw.Number){
-                    case 1:makeWithdraw.Amount = 100000; break;
-                    case 2:makeWithdraw.Amount = 200000; break;
-                    case 3:makeWithdraw.Amount = 500000; break;
-                    case 4:makeWithdraw.Amount = 1000000; break;
-                    case 5:makeWithdraw.Amount = 2000000; break;
-                    case 6:makeWithdraw.Amount = 5000000; break;
-                    case 7:makeWithdraw.Amount = 10000000; break;
+            Console.WriteLine("7.1000000\t\t8.Enter Another\t\t9.Back");
+            while(!option.isValidNumberWithdraw()){
+                Console.Write("Enter Choice:");
+                option.Number = Convert.ToInt32(Console.ReadLine());
+                switch(option.Number){
+                    case 1:amount = 100000; break;
+                    case 2:amount = 200000; break;
+                    case 3:amount = 500000; break;
+                    case 4:amount = 1000000; break;
+                    case 5:amount = 2000000; break;
+                    case 6:amount = 5000000; break;
+                    case 7:amount = 10000000; break;
                     case 8:
-                        Console.Write("Enter Amount Withdraw:");
-                        makeWithdraw.Amount = Convert.ToInt64(Console.ReadLine());
-                        while(!makeWithdraw.isValidAmount()){
-                            Console.Write("Re-Enter Amount:");
-                            makeWithdraw.Amount = Convert.ToInt64(Console.ReadLine());
+                        Console.Write("Enter Amount:");
+                        amount = Convert.ToInt64(Console.ReadLine());
+                        while(!(amount <= 0 && amount == 0)){
+                            Console.Write("Enter Amount:");
+                            amount = Convert.ToInt64(Console.ReadLine());
                         }
                     break;
+                    case 9:ScreenMenu(balance);break;
                 }
+                if(balance > amount) {
+                    balance -= amount;
+                    Console.WriteLine($"Your User ID has:{balance} VND");
+                } else {
+                    Console.WriteLine("Your User ID is not enough to perform.");
+                }
+                ScreenMenu(balance);
             }
-            if(makeWithdraw.isValidWithdraw()) {
-                makeWithdraw.Balance -= makeWithdraw.Amount;
-                Console.WriteLine($"Your User ID Balance: {makeWithdraw.Balance} VND");
-            }else{
-                Console.WriteLine("Your User ID is not enough to perform.");
-            }   
-            BackScreen();
+            return balance;
         }
-        public void Deposite()
+        public long Deposite(long balance)
         {
-            var makeDeposite = new ATM();
-            Console.WriteLine("<==========>Deposite<==========>");
-            Console.WriteLine("1.Deposit money into your user ID");
-            Console.WriteLine("2.Deposit money into other user ID");
-            while(!makeDeposite.isValidNumber()){
-                Console.Write("Enter choice:");
-                makeDeposite.Number = Convert.ToInt32(Console.ReadLine());
-                switch(makeDeposite.Number){
-                    case 1:
-                        Console.Write("Enter Amount Deposite:");
-                        makeDeposite.Amount = Convert.ToInt64(Console.ReadLine());
-                        while(makeDeposite.Amount <= 0){
-                            Console.Write("Re-Enter Amount:");
-                            makeDeposite.Amount = Convert.ToInt64(Console.ReadLine());
-                        }
-                        makeDeposite.Balance += makeDeposite.Amount;
-                        Console.WriteLine($"Your User ID has: {makeDeposite.Balance} VND");
-                        BackScreen();
-                    break;
-                }
+            Console.Write("Enter Deposite:");
+            long amount = Convert.ToInt64(Console.ReadLine());
+            while(amount <= 0){
+                Console.Write("Re-Enter Deposite:");
+                amount = Convert.ToInt64(Console.ReadLine());
             }
+            balance += amount;
+            Console.WriteLine($"Your User ID is:{balance} VND");
+            ScreenMenu(balance);
+            return balance;
         }
     }
 }
