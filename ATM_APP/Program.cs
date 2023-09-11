@@ -1,99 +1,129 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic;  
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ATM_APP
 {
-    class Program
+    class AtmApp
     {
-        public static List<Account>? ListUsersID { get; private set; }
-
-        static void ShowMenuLogin()
+        public long userId {get;set;}
+        public long balance {get;set;}
+        public AtmApp() { }
+        public AtmApp(long userId,long balance)
         {
-            Console.WriteLine("1.User ID");
-            Console.WriteLine("2.Exit");
-            int choice = 0;
-            while(choice != 1 && choice != 2){
-                Console.Write("Choice:");
-                choice = Convert.ToInt32(Console.ReadLine());
-                switch(choice){
-                    case 1:
-                        Account userId = new Account();
-                        userId.InputUserId();
-                        ShowMainMenu(userId);
-                        ListUsersID.Add(userId);
-                        int index = 1;
-                        foreach(Account id in ListUsersID){
-                            id.ShowInfo();
-                            index++;
-                        }
-                    break;
-                    case 2:Console.WriteLine("Thank You & See You Again");break;
-                    default:break;
-                }
-            } 
+            this.userId = userId;
+            this.balance = balance;
         }
-        static void ShowMainMenu(Account userId)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("<==========>MENU<==========>");
-            Console.WriteLine("1.Display balance");
-            Console.WriteLine("2.Withdraw");
-            Console.WriteLine("3.Deposite");
-            Console.WriteLine("4.Back to login screen");
-            int choice = 0;
-            while(!(choice > 0 && choice < 5)){
-                Console.Write("Choice:");
-                choice = Convert.ToInt32(Console.ReadLine());
-                switch(choice){
-                    case 1:
-                        userId.ShowBalance();
-                        ShowMainMenu(userId);
-                    break;
-                    case 2:
-                        Console.WriteLine("<==========>Withdraw<==========>");
-                        Console.WriteLine("1.100000\t\t2.200000\t\t3.500000");
-                        Console.WriteLine("4.1000000\t\t5.2000000\t\t6.5000000");
-                        Console.WriteLine("7.1000000\t\t8.Enter Another\t\t9.Back");
-                        int option = 0;
-                        while(!(option > 0 && option < 10)){
-                            Console.Write("Choice:");
-                            option = Convert.ToInt32(Console.ReadLine());
-                            switch(option){
-                                case 1: userId.amount = 100000;break;
-                                case 2: userId.amount = 200000;break;
-                                case 3: userId.amount = 500000;break;
-                                case 4: userId.amount = 1000000;break;
-                                case 5: userId.amount = 2000000;break;
-                                case 6: userId.amount = 5000000;break;
-                                case 7: userId.amount = 10000000;break;
-                                case 8:
-                                    Console.Write("Enter Amount:");
-                                    userId.amount = Convert.ToInt64(Console.ReadLine());
-                                    while(!(userId.amount <= 0 && userId.amount == 0)){
-                                        Console.Write("Enter Amount:");
-                                        userId.amount = Convert.ToInt64(Console.ReadLine());
+            List<AtmApp> ListUsersID = new List<AtmApp>();
+            ListUsersID.Add(new AtmApp(77882664, 0));
+            ListUsersID.Add(new AtmApp(664444442, 0));
+            void ShowMenuLogin(AtmApp currentUser)
+            {
+                
+                Console.WriteLine("1.User ID");
+                Console.WriteLine("2.Exit");
+                int userChoose = 0;
+                while(userChoose != 1 && userChoose != 2){
+                    Console.Write("Choose:");
+                    userChoose = Convert.ToInt32(Console.ReadLine());
+                    switch(userChoose){
+                        case 1:
+                            Console.Write("Enter User ID:");
+                            while(true){
+                                try {
+                                    long id = Convert.ToInt64(Console.ReadLine());
+                                    currentUser = listUsersID.FirstOrDefault(a => a.userId == id);
+                                    if(currentUser != null) { break; }
+                                    else{
+                                        Console.WriteLine("Please Try Again");
                                     }
-                                break;
-                                case 9:ShowMainMenu(userId);break;
-                                default:break;
+                                } catch {Console.WriteLine("Please Try Again");}
                             }
-                        }
-                    userId.HandleWithdraw();
-                    ShowMainMenu(userId);
-                    break;
-                    case 3:
-                        userId.HandleDeposite();
-                        ShowMainMenu(userId);
-                    break;
-                    case 4:ShowMenuLogin(); break;
+                            ShowMainMenu(currentUser);
+                        break;    
+                        case 2: Console.WriteLine("Thank You & See You Again");break;
+                        default: break;
+                    }
                 }
             }
-        }
-        static void Main(string[] args)
-        {
-            ListUsersID = new List<Account>();
-            ShowMenuLogin();
+
+            void ShowMainMenu(AtmApp currentUser)
+            {
+                Console.WriteLine("<==========>MENU<==========>");
+                Console.WriteLine("1.Display balance");
+                Console.WriteLine("2.Withdraw");
+                Console.WriteLine("3.Deposite");
+                Console.WriteLine("4.Back to login screen");
+                int userChoose = 0;
+                while(!(userChoose > 0 && userChoose < 5)){
+                    Console.Write("Choose:");
+                    userChoose = Convert.ToInt32(Console.ReadLine());
+                    switch(userChoose){
+                        case 1: showBalance(currentUser);break;
+                        case 2: handleWithdraw(currentUser);break;
+                        case 3: handleDeposite(currentUser);break;
+                        case 4: ShowMenuLogin(currentUser); break;
+                        default: break;
+                    }
+                }
+            }
+            void showBalance(AtmApp currentUser)
+            {
+                Console.WriteLine($"Your account has:{currentUser.balance} VND");
+            }
+            void handleWithdraw(AtmApp currentUser)
+            {
+                long amount = 0;
+                Console.WriteLine("<==========>Withdraw<==========>");
+                Console.WriteLine("1.100000\t\t2.200000\t\t3.500000");
+                Console.WriteLine("4.1000000\t\t5.2000000\t\t6.5000000");
+                Console.WriteLine("7.1000000\t\t8.Enter Another\t\t9.Back");
+                int userChoose = 0;
+                while(!(userChoose > 0 && userChoose < 10)){
+                    Console.Write("Choose:");
+                    userChoose = Convert.ToInt32(Console.ReadLine());
+                    switch(userChoose){
+                        case 1: amount = 100000; break;
+                        case 2: amount = 200000; break;
+                        case 3: amount = 500000; break;
+                        case 4: amount = 1000000; break;
+                        case 5: amount = 2000000; break;
+                        case 6: amount = 5000000; break;
+                        case 7: amount = 10000000; break;
+                        case 8:
+                            Console.Write("Enter Another Money:");
+                            amount = Convert.ToInt64(Console.ReadLine());
+                            while(amount %10000 != 0) {
+                                Console.Write("Please Re-Enter:");
+                                amount = Convert.ToInt64(Console.ReadLine());
+                            }
+                        break;
+                        case 9: ShowMainMenu(currentUser); break;
+                        default: break;
+                    }
+                }
+                if(currentUser.balance > amount) {
+                    currentUser.balance -= amount;
+                    Console.WriteLine($"Your account has:{currentUser.balance} VND");
+                } else {
+                    Console.WriteLine("Your account is not enough to perform. Please deposit");
+                }
+            }
+            void handleDeposite(AtmApp currentUser)
+            {
+                Console.Write("Enter Deposite:");
+                long amount = Convert.ToInt64(Console.ReadLine());
+                while(amount <= 0)
+                {
+                    Console.Write("Re-Enter Deposite:");
+                    amount = Convert.ToInt64(Console.ReadLine());
+                }
+                currentUser.balance += amount;
+                Console.WriteLine($"Your account has:{currentUser.balance} VND");
+            }
         }
     }
 }
